@@ -24,20 +24,38 @@ class User:
             self.created_at = datetime.now()
     
     def add_skill_offered(self, skill: str) -> None:
-        if skill and skill not in self.skills_offered:
-            self.skills_offered.append(skill)
+        if skill and skill.strip():
+            skill_already_exists = False
+            for existing_skill in self.skills_offered:
+                if existing_skill == skill:
+                    skill_already_exists = True
+                    break
+            
+            if not skill_already_exists:
+                self.skills_offered.append(skill)
     
     def add_skill_needed(self, skill: str) -> None:
-        if skill and skill not in self.skills_needed:
-            self.skills_needed.append(skill)
+        if skill and skill.strip():
+            skill_already_exists = False
+            for existing_skill in self.skills_needed:
+                if existing_skill == skill:
+                    skill_already_exists = True
+                    break
+            
+            if not skill_already_exists:
+                self.skills_needed.append(skill)
     
     def remove_skill_offered(self, skill: str) -> None:
-        if skill in self.skills_offered:
-            self.skills_offered.remove(skill)
+        for i in range(len(self.skills_offered)):
+            if self.skills_offered[i] == skill:
+                self.skills_offered.pop(i)
+                break
     
     def remove_skill_needed(self, skill: str) -> None:
-        if skill in self.skills_needed:
-            self.skills_needed.remove(skill)
+        for i in range(len(self.skills_needed)):
+            if self.skills_needed[i] == skill:
+                self.skills_needed.pop(i)
+                break
     
     def to_dict(self) -> dict:
         return {

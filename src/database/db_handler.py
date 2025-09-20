@@ -137,8 +137,19 @@ class DatabaseHandler:
         with self.get_connection() as conn:
             cursor = conn.cursor()
             cursor.execute("SELECT user_id FROM users ORDER BY created_at")
-            user_ids = [row["user_id"] for row in cursor.fetchall()]
-            return [self.get_user(uid) for uid in user_ids]
+            rows = cursor.fetchall()
+            
+            user_ids = []
+            for row in rows:
+                user_ids.append(row["user_id"])
+            
+            all_users = []
+            for user_id in user_ids:
+                user = self.get_user(user_id)
+                if user:
+                    all_users.append(user)
+            
+            return all_users
 
     def update_user(self, user: User) -> bool:
         if not user.user_id:
@@ -153,7 +164,6 @@ class DatabaseHandler:
                 WHERE user_id = ?
             """, (user.name, user.email, user.location, user.bio, user.user_id))
 
-            # Reset skills
             cursor.execute("DELETE FROM skills_offered WHERE user_id = ?", (user.user_id,))
             cursor.execute("DELETE FROM skills_needed WHERE user_id = ?", (user.user_id,))
 
@@ -200,7 +210,6 @@ class DatabaseHandler:
             return cursor.lastrowid
 
     def get_matches_for_user(self, user_id: int) -> List[Match]:
-
         with self.get_connection() as conn:
             cursor = conn.cursor()
             cursor.execute("""
@@ -209,14 +218,18 @@ class DatabaseHandler:
                 ORDER BY compatibility_score DESC
             """, (user_id, user_id))
 
+            rows = cursor.fetchall()
             matches = []
-            for row in cursor.fetchall():
-                matches.append(Match(
+            
+            for row in rows:
+                match = Match(
                     match_id=row["match_id"],
                     user1_id=row["user1_id"],
                     user2_id=row["user2_id"],
                     compatibility_score=row["compatibility_score"],
                     matching_skills=json.loads(row["matching_skills"]),
                     created_at=datetime.fromisoformat(row["created_at"])
-                ))
+                )
+                matches.append(match)
+            
             return matches
