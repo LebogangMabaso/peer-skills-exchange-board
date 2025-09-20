@@ -1,13 +1,10 @@
-# Core dependencies
 pytest==7.4.3
 behave==1.2.6
 pytest-cov==4.1.0
 
-# Development tools
 black==23.12.0
 flake8==6.1.0
 mypy==1.8.0
 
-# Testing
 pytest-mock==3.12.0
 pytest-xdist==3.5.0
