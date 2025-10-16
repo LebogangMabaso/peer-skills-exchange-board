@@ -237,9 +237,6 @@ If you encounter issues:
 3. Run the test suite to identify any problems
 4. Check the project structure matches the expected layout
 
-## License
-
-This project is open source. Please check the license file for details.
 
 ## Contributing
 
