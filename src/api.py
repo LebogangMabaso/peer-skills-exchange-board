@@ -1,15 +1,25 @@
 from flask import Flask, request, jsonify
 import os
+import sys
+
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
 from src.database.db_handler import DatabaseHandler
 from src.utils.matchmaker import Matchmaker
 from src.models.user import User
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder='../static', static_url_path='/static')
+static_dir = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'static')
 
 db_path = os.environ.get('DATABASE_PATH', 'peer_exchange.db')
 db = DatabaseHandler(db_path)
 db.initialize_database()
 matchmaker = Matchmaker(db)
+
+@app.route('/')
+def home():
+    with open(os.path.join(static_dir, 'index.html')) as f:
+        return f.read()
 
 @app.route('/api/users', methods=['GET'])
 def get_users():
@@ -65,5 +75,5 @@ def get_matches(user_id):
     return jsonify(match_list)
 
 if __name__ == '__main__':
-    app.run(debug=True, port=5000)
+    app.run(debug=True, port=5001)
 

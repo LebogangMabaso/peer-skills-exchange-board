@@ -47,39 +47,60 @@ make install
 
 ## Running the Application
 
-### Method 1: Direct Python Execution
+### Web Interface (Recommended)
 
 ```bash
 # Make sure you're in the project directory
 cd peer-skills-exchange-board
 
-# Activate virtual environment (if not already activated)
+# Activate virtual environment
 source venv/bin/activate  # On Windows: venv\Scripts\activate
 
-# Run the interactive application
+# Start the web server
+python run_web.py
+```
+
+Then open your browser and go to: **http://localhost:5001**
+
+### Command Line Interface
+
+```bash
+# Activate virtual environment
+source venv/bin/activate  # On Windows: venv\Scripts\activate
+
+# Run the CLI application
 python -m src.main
 ```
 
-### Method 2: Using Makefile
+### Using Makefile
 
 ```bash
-# Run the application
 make run
 ```
 
-### Method 3: Using Docker
+### Using Docker
 
 ```bash
 # Build the Docker image
 make docker-build
 
-# Run the application in Docker (runs tests by default)
+# Run the application in Docker
 docker run -it --rm peer-skill-exchange python -m src.main
 ```
 
 ## Usage
 
-Once the application starts, you'll see a welcome message and available commands:
+### Web Interface
+
+The web interface provides an easy way to interact with the platform:
+
+1. **Add New User** - Fill in name, email, and skills (comma-separated)
+2. **View All Users** - Click "Refresh Users" to see everyone registered
+3. **Find Matches** - Enter a user ID to find compatible skill exchange partners
+
+### Command Line Interface
+
+Once the CLI starts, you'll see a welcome message and available commands:
 
 ```
 Welcome to the Peer Skill Exchange Platform!

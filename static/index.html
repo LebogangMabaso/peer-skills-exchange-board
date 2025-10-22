@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Peer Skills Exchange</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <h1>Peer Skills Exchange Platform</h1>
+
+    <div class="section">
+        <h2>Add New User</h2>
+        <form id="addUserForm">
+            <div>
+                <label>Name:</label><br>
+                <input type="text" id="name" required>
+            </div>
+            <div>
+                <label>Email:</label><br>
+                <input type="email" id="email" required>
+            </div>
+            <div>
+                <label>Skills Offered (comma separated):</label><br>
+                <input type="text" id="skillsOffered" placeholder="Python, JavaScript">
+            </div>
+            <div>
+                <label>Skills Needed (comma separated):</label><br>
+                <input type="text" id="skillsNeeded" placeholder="React, Docker">
+            </div>
+            <button type="submit">Add User</button>
+        </form>
+        <div id="addUserMessage"></div>
+    </div>
+
+    <div class="section">
+        <h2>All Users</h2>
+        <button onclick="loadUsers()">Refresh Users</button>
+        <div id="usersList"></div>
+    </div>
+
+    <div class="section">
+        <h2>Find Matches</h2>
+        <div>
+            <label>User ID:</label><br>
+            <input type="number" id="matchUserId">
+            <button onclick="findMatches()">Find Matches</button>
+        </div>
+        <div id="matchesList"></div>
+    </div>
+
+    <script src="/static/script.js"></script>
+</body>
+</html>
