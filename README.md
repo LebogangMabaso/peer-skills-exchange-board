@@ -50,10 +50,13 @@ make install
 ### Method 1: Direct Python Execution
 
 ```bash
+# Make sure you're in the project directory
+cd peer-skills-exchange-board
+
 # Activate virtual environment (if not already activated)
 source venv/bin/activate  # On Windows: venv\Scripts\activate
 
-# Run the application
+# Run the interactive application
 python -m src.main
 ```
 
@@ -70,8 +73,8 @@ make run
 # Build the Docker image
 make docker-build
 
-# Run the application in Docker
-make docker-run
+# Run the application in Docker (runs tests by default)
+docker run -it --rm peer-skill-exchange python -m src.main
 ```
 
 ## Usage
